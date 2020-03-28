@@ -5,7 +5,7 @@ import sys
 directory=sys.argv[1]
 filename=sys.argv[2]
 def create_pyscript(directory, filename):
-    #this function creates a new pyscript file, adds the inerpretur and opens it in vim.
+    #this function creates a new pyscript file, adds the interpreter.
     if not os.path.isdir(directory):
         os.mkdir(directory)
 
