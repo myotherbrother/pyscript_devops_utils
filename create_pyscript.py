@@ -7,6 +7,11 @@ import stat
 #filename=sys.argv[2]
 def create_pyscript(directory, filename):
     #this function creates a new pyscript file, adds the interpreter.
+    if "./" in directory:
+        dirleaf = directory.split("./")[1]
+       # dirleaf = dirsplit[1]
+        rootdir = os.getcwd()
+        directory = "{}/{}".format(rootdir, dirleaf)
     if not os.path.isdir(directory):
         os.mkdir(directory)
 
