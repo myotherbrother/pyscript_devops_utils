@@ -2,16 +2,20 @@
 
 import os
 import sys
-import stat
-#directory=sys.argv[1]
-#filename=sys.argv[2]
-def create_pyscript(directory, filename):
+import argparse
+
+def create_pyscript(filename, directory):
     #this function creates a new pyscript file, adds the interpreter.
+    dir_base = os.getcwd()
+    
     if "./" in directory:
         dirleaf = directory.split("./")[1]
-       # dirleaf = dirsplit[1]
-        rootdir = os.getcwd()
-        directory = "{}/{}".format(rootdir, dirleaf)
+        directory = "{}/{}".format(dir_base, dirleaf)
+    elif "/" not in directory:
+        directory = "{}/{}".format(dir_base, directory)
+    else:
+        pass
+
     if not os.path.isdir(directory):
         os.mkdir(directory)
 
@@ -33,9 +37,14 @@ def edit_perms(fullname):
     
 
 if __name__ == "__main__":
-    directory = sys.argv[1]
-    filename = sys.argv[2]
-    fullname = create_pyscript(directory, filename)
+    dir_base = os.getcwd()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-f', required=True, help="Script name is required")
+    parser.add_argument('-d', type=str, default=dir_base, help="script location")
+    args = parser.parse_args()
+    filename=args.f
+    directory=args.d
+    fullname = create_pyscript(filename, directory)
     edit_perms(fullname)
     sys.exit(0)
-create_pyscript(sys.argv[1], sys.argv[2])
+create_pyscript()
